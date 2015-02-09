@@ -4,17 +4,20 @@ Created on Feb 6, 2015
 @author: rpavlyuk
 '''
 
-from bottle import Bottle, run
+from bottle import Bottle, run, SimpleTemplate
 
 from LS30Connector import ReqRsnp
-from LS30Util import Commands
+from LS30Util import Commands, Config
+from LS30Web import Util
+from LS30Data import DeviceLog
 
 import pprint
 
 webHost = "localhost"
 webPort = 8080
 
-connString  = "socket://192.168.1.220:1681"
+# connString  = "socket://192.168.1.220:1681"
+connString  = "socket://home.pavlyuk.lviv.ua:1681"
 
 app = Bottle()
 isInitialized = False
@@ -68,6 +71,22 @@ def commandSend(command):
     response += '</pre></div>'
     
     return response
+
+@app.route('/display/log/<entryStart>/<entryEnd>')
+def displayLog(entryStart=0, entryEnd=25):
+    
+    templateFileName = "displayLogEntries.html"
+    templateFilePath = Config.getWEBTemplatesDir() + "/" + templateFileName
+    
+    tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
+    
+    eventList = DeviceLog.getDeviceLog(entryStart, entryEnd)
+    
+    return tpl.render(eventList=eventList)
+    
+    
+    
+    
     
     
 

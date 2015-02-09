@@ -50,11 +50,21 @@
          "type": "hex2",
          "processors": [  ],
          "args": [
-			{ "length": 6, "func": "resp_date1",  "key": "date" },
-			{ "length": 1, "type": "Day of Week",  "key": "dow" },
-			{ "length": 4, "func": "resp_date2",  "key": "time" }
+			{ "length": 6, "func": "resp_date1",  "id": "date" },
+			{ "length": 1, "type": "Day of Week",  "id": "dow" },
+			{ "length": 4, "func": "resp_date2",  "id": "time" }
 		  ]
-       }    
+       },
+       {
+         "id":			"event",
+         "cmd_type":	"special",
+         "name":		"Event",
+         "command":		"ev",
+         "no_query":	1,
+		 "query_args":  [
+		 	{ "id": "value", "length": 3, "func": "resp_hex3" }
+		 ]
+	   }  
     
     ]
   

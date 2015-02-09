@@ -1,0 +1,43 @@
+<html>
+<head>
+
+</head>
+
+
+<body>
+<p> Device log entries: </p>
+<table border="1">
+
+  <tr>
+    <th>No.</th>
+    <th>Code</th>
+    <th>Event</th>
+    <th>Zone</th>
+    <th>Type</th>
+    <th>Activated</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Device Name</th>
+  </tr>
+
+  % for event in eventList:
+  <tr>
+    <td>{{event['number']}}</td>
+    <td>{{event['code']}}</td>
+    <td>{{event['event']}}</td>
+    <td>{{event['zone']}}</td>
+    <td>{{event['event_type']}}</td>
+    <td>{{event['activated']}}</td>
+    <td>{{event['date']}}</td>
+    <td>{{event['time']}}</td>
+    <td>{{event['device_name']}}</td>
+  </tr>
+  % end
+
+
+</table>
+
+
+</body>
+
+</html>

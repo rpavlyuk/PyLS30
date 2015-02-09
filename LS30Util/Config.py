@@ -10,6 +10,7 @@ TODO: Base direction auto configuration
 directoryBase = "/Users/rpavlyuk/Work/LifeSOS/PyLS30"
 
 directoryConfig = "config"
+directoryWebTemplates = "templates/web"
 
 
 fileCommandsConfig = "LS30Commands.json"
@@ -27,5 +28,9 @@ def getConfigFolder(bDir=""):
 def getCommandsConfig():
     global fileCommandsConfig
     return getConfigFolder() + "/" + fileCommandsConfig
+
+def getWEBTemplatesDir():
+    global directoryBase, directoryWebTemplates    
+    return directoryBase + "/" + directoryWebTemplates
     
     

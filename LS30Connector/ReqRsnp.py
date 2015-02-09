@@ -14,10 +14,10 @@ class ReqRsnp():
     
     connection = None
 
-    # connString  = "socket://home.pavlyuk.lviv.ua:1681"
-    connString  = "socket://192.168.1.220:1681"
+    connString  = "socket://home.pavlyuk.lviv.ua:1681"
+    # connString  = "socket://192.168.1.220:1681"
     
-    read_limit = 128
+    read_limit = 4096
     
     
     cmd_prefix = "!"
@@ -82,7 +82,7 @@ class ReqRsnp():
             index+=1
         
         print "Got response: " + resp
-        if self.read_limit == index:
+        if self.read_limit-1 == index:
             print "WARNING: Read length was reached ("+self.read_limit+")"
         
         return resp
