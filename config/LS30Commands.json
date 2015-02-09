@@ -1,0 +1,65 @@
+{
+  "commands": {
+    "simple_commands": [
+       {
+         "id": "rom_version",
+         "cmd_type": "simple",
+         "name": "ROM Version",
+         "command": "vn",
+         "length": 99,
+         "type": "string",
+         "processors": [ 
+            {
+              "order": 10,
+              "function": "trim"
+            },
+            {
+              "order": 20,
+              "function": "cleanup"
+            }
+          ]
+       },
+       {
+         "id": "inact_function",
+         "cmd_type": "simple",
+         "name": "Inactivity Function",
+         "command": "o0",
+         "length": 2,
+         "type": "hex2",
+         "processors": [  ]
+       },
+              
+        {
+         "id": "tel_line_cut_detect",
+         "cmd_type": "simple",
+         "name": "Telephone Line Cut Detection",
+         "command": "m2",
+         "length": 1,
+         "type": "hex2",
+         "processors": [  ]
+       }   
+    
+    ],
+    "spec_commands": [
+        {
+         "id": "date_time",
+         "cmd_type": "special",
+         "name": "Date/Time",
+         "command": "dt?",
+         "length": 0,
+         "type": "hex2",
+         "processors": [  ],
+         "args": [
+			{ "length": 6, "func": "resp_date1",  "key": "date" },
+			{ "length": 1, "type": "Day of Week",  "key": "dow" },
+			{ "length": 4, "func": "resp_date2",  "key": "time" }
+		  ]
+       }    
+    
+    ]
+  
+  
+  }
+
+
+}
