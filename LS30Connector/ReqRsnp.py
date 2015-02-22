@@ -6,6 +6,8 @@ Created on Feb 6, 2015
 from serial import serial_for_url, SerialException
 from lib2to3.fixer_util import String
 
+from LS30Util import Config
+
 
 class ReqRsnp():
     '''
@@ -13,9 +15,6 @@ class ReqRsnp():
     '''
     
     connection = None
-
-    connString  = "socket://home.pavlyuk.lviv.ua:1681"
-    # connString  = "socket://192.168.1.220:1681"
     
     read_limit = 4096
     
@@ -44,6 +43,8 @@ class ReqRsnp():
         '''
         if connectionString != "":
             self.connString = connectionString
+        else:
+            self.connString = Config.getLS30ConnectionString()
         
         print "Opening serial connection to " + self.connString
         self.connection = serial_for_url(self.connString)
@@ -52,6 +53,19 @@ class ReqRsnp():
             raise SerialException()
         
         print "Connection to "+ self.connString + " established"
+    
+    
+    def __del__ (self):
+        '''
+        Destructor
+        
+        Makes sure that connection was closed before object is deleted
+        '''
+        if self.connection.isOpen:
+            self.connection.close()
+        
+        if not self.connection.isOpen():
+            print "Connection closed successfully"
     
 
     def sendRequest(self, requestString, chunkSize=1):

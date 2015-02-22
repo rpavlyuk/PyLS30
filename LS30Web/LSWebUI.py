@@ -17,7 +17,7 @@ webHost = "localhost"
 webPort = 8080
 
 # connString  = "socket://192.168.1.220:1681"
-connString  = "socket://home.pavlyuk.lviv.ua:1681"
+connString  = Config.getLS30ConnectionString()
 
 app = Bottle()
 isInitialized = False
@@ -42,7 +42,7 @@ def start():
 def hello():
     return "Hello World!"
  
-@app.route('/serial/get/<command>')
+@app.route('/ls30/serial/get/<command>')
 def serial(command):  
     
     global reqRsnp
@@ -52,7 +52,7 @@ def serial(command):
 
     return response
 
-@app.route('/command/send/<command>')
+@app.route('/ls30/command/send/<command>')
 def commandSend(command):
     global reqRsnp
 
@@ -72,15 +72,17 @@ def commandSend(command):
     
     return response
 
-@app.route('/display/log/<entryStart>/<entryEnd>')
+@app.route('/ls30/display/log/<entryStart>/<entryEnd>')
 def displayLog(entryStart=0, entryEnd=25):
+    
+    global reqRsnp
     
     templateFileName = "displayLogEntries.html"
     templateFilePath = Config.getWEBTemplatesDir() + "/" + templateFileName
     
     tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
     
-    eventList = DeviceLog.getDeviceLog(entryStart, entryEnd)
+    eventList = DeviceLog.getDeviceLog(reqRsnp, int(entryStart), int(entryEnd))
     
     return tpl.render(eventList=eventList)
     
