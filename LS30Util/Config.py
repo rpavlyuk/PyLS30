@@ -19,6 +19,9 @@ directoryCodeTable = "code"
 
 fileCommandsConfig = "LS30Commands.json"
 fileEventCode = "eventCode.json"
+fileEventTypeCode = "eventTypeCode.json"
+fileHexCode = "Hex.json"
+fileRHexCode = "RHex.json"
 
 '''
 Remote access settings
@@ -60,4 +63,19 @@ def getCodeTableConfigDirectory():
 def getCodeTableEvents():
     global fileEventCode
     return getCodeTableConfigDirectory() + "/" + fileEventCode
+
+def getCodeTableEventTypes():
+    global fileEventTypeCode
+    return getCodeTableConfigDirectory() + "/" + fileEventTypeCode
+
+def getCodeTableHex():
+    global fileHexCode
+    return getCodeTableConfigDirectory() + "/" + fileHexCode
+
+def getCodeTableRHex():
+    global fileHexCode
+    return getCodeTableConfigDirectory() + "/" + fileRHexCode
+    
+
+
     

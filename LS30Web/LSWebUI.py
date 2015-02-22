@@ -82,9 +82,11 @@ def displayLog(entryStart=0, entryEnd=25):
     
     tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
     
+    totalEventCount = DeviceLog.getTotalEventsCount(reqRsnp)
     eventList = DeviceLog.getDeviceLog(reqRsnp, int(entryStart), int(entryEnd))
     
-    return tpl.render(eventList=eventList)
+    
+    return tpl.render(eventList=eventList, totalEventCount=totalEventCount)
     
     
     

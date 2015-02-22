@@ -17,3 +17,11 @@ def getEventNameByCode(eventCode):
     
     return eventsJSON[str(eventCode)]
 
+
+def getEventTypeByCode(eventTypeCode):
+    
+    eventTypesFile = open(Config.getCodeTableEventTypes())
+    
+    eventTypesJSON = json.load(eventTypesFile)
+    
+    return eventTypesJSON[str(eventTypeCode)]
