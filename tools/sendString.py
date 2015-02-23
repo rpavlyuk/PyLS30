@@ -4,9 +4,14 @@
 
 import sys
 import os
-sys.path.insert(0, "/Users/rpavlyuk/Work/LifeSOS/PyLS30")
-from LS30Connector import ReqRsnp
 
+dirBase = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.insert(0, dirBase)
+
+from LS30Connector import ReqRsnp
+from LS30Util import Config
+
+Config.setBaseDir(dirBase)
 
 
 reqRsnp = ReqRsnp.ReqRsnp()
