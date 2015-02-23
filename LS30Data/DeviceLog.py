@@ -5,9 +5,8 @@ Created on Feb 9, 2015
 '''
 
 from LS30Util import Commands, Common
-from LS30Connector import ReqRsnp
 from LS30Data import CodeTable
-from pprint import pprint, PrettyPrinter, pformat
+from pprint import pformat
 import time
 import datetime
 import logging

@@ -12,6 +12,7 @@ from LS30Connector import ReqRsnp
 from LS30Util import Config
 
 Config.setBaseDir(dirBase)
+Config.configure()
 
 
 reqRsnp = ReqRsnp.ReqRsnp()

@@ -4,7 +4,7 @@ Created on Feb 6, 2015
 @author: rpavlyuk
 '''
 from serial import serial_for_url, SerialException
-from lib2to3.fixer_util import String
+import logging
 
 from LS30Util import Config
 
@@ -46,13 +46,13 @@ class ReqRsnp():
         else:
             self.connString = Config.getLS30ConnectionString()
         
-        print "Opening serial connection to " + self.connString
+        logging.info("Opening serial connection to " + self.connString)
         self.connection = serial_for_url(self.connString)
         
         if not self.connection.isOpen():
             raise SerialException()
         
-        print "Connection to "+ self.connString + " established"
+        logging.info("Connection to "+ self.connString + " established")
     
     
     def __del__ (self):
