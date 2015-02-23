@@ -78,7 +78,6 @@ def displayLog(entryStart=0, entryEnd=25):
     global reqRsnp
     
     templateFileName = "displayLogEntries.html"
-    templateFilePath = Config.getWEBTemplatesDir() + "/" + templateFileName
     
     tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
     

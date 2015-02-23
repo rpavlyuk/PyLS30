@@ -14,6 +14,7 @@ isConfigured = False
 '''
 Basic settings
 '''
+logger = None
 logLevel = logging.DEBUG
 
 '''
@@ -28,7 +29,9 @@ Directories and files
 directoryConfig = "config"
 directoryWebTemplates = "templates/web"
 directoryCodeTable = "code"
+directoryLog = "log"
 
+fileMainLog = "main.log"
 fileCommandsConfig = "LS30Commands.json"
 fileEventCode = "eventCode.json"
 fileEventTypeCode = "eventTypeCode.json"
@@ -38,21 +41,50 @@ fileRHexCode = "RHex.json"
 '''
 Remote access settings
 '''
-# ls30_socket_url = "socket://192.168.1.220:1681"
-ls30_socket_url = "socket://home.pavlyuk.lviv.ua:1681"
+ls30_socket_url = "socket://192.168.1.220:1681"
+# ls30_socket_url = "socket://home.pavlyuk.lviv.ua:1681"
 
 
 '''
 Routines
 '''
 def configure():
-    global isConfigured, logLevel  
+    global isConfigured, logLevel, logger
     
+    # if we're configured then nothing to do here
     if isConfigured:
         return
     
+    # let's create an instance of logger object
+    logger = logging.getLogger('PyLS30')
+    logger.setLevel(logLevel)
+    
+    # We'd like to log into both file and console so
+    # first we create a log file handler
+    fh = logging.FileHandler(getMainLogFile())
+    fh.setLevel(logLevel)
+    
+    # ... then console handler
+    ch = logging.StreamHandler()
+    ch.setLevel(logLevel)
+    
+    # We'd like file logging to be nice
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    
+    # Now let's add the handlers to the logger object  
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+    
+    # Let's configure global system logging, just in case some dude decided to use it
+    # instead of our configured one
     logging.basicConfig(level=logLevel)
     
+    isConfigured = True
+    
+def getLogger():
+    global logger
+    return logger
 
 
 def getConfigFolder(bDir=""):
@@ -65,7 +97,11 @@ def getConfigFolder(bDir=""):
 
 def setBaseDir(baseDir):
     global directoryBase
-    directoryBase = baseDir  
+    directoryBase = baseDir
+    
+def getBaseDirectory():
+    global directoryBase
+    return directoryBase  
 
 def getCommandsConfig():
     global fileCommandsConfig
@@ -99,6 +135,14 @@ def getCodeTableHex():
 def getCodeTableRHex():
     global fileHexCode
     return getCodeTableConfigDirectory() + "/" + fileRHexCode
+
+def getLogDirectory():
+    global directoryLog
+    return getBaseDirectory() + "/" + directoryLog
+
+def getMainLogFile():
+    global fileMainLog
+    return getLogDirectory() + "/" + fileMainLog
     
 
 

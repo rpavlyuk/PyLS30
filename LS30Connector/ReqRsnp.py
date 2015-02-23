@@ -46,13 +46,13 @@ class ReqRsnp():
         else:
             self.connString = Config.getLS30ConnectionString()
         
-        logging.info("Opening serial connection to " + self.connString)
+        Config.getLogger().info("Opening serial connection to " + self.connString)
         self.connection = serial_for_url(self.connString)
         
         if not self.connection.isOpen():
             raise SerialException()
         
-        logging.info("Connection to "+ self.connString + " established")
+        Config.getLogger().info("Connection to "+ self.connString + " established")
     
     
     def __del__ (self):
@@ -65,7 +65,7 @@ class ReqRsnp():
             self.connection.close()
         
         if not self.connection.isOpen():
-            print "Connection closed successfully"
+            Config.getLogger().info("Connection closed successfully")
     
 
     def sendRequest(self, requestString, chunkSize=1):
@@ -73,7 +73,7 @@ class ReqRsnp():
         Send raw text to serial port
         ''' 
         
-        print "Port opened. Sending request '" + requestString + "'"
+        Config.getLogger().debug("Port opened. Sending request '" + requestString + "'")
         self.connection.write(requestString)
         
         resp = ""
@@ -81,23 +81,21 @@ class ReqRsnp():
         index = 0
         eoc_index = 1
         
-        print "Reading port output"
+        Config.getLogger().debug("Reading port output")
         while (index < self.read_limit):
             msg = self.connection.read(chunkSize)
-            if self.doConnDebug:
-                print "[DEBUG] Got chunk [" + str(index) + "]: " + msg
+            Config.getLogger().debug("Got chunk [" + str(index) + "]: " + msg)
             resp += msg
             if msg == "&":
-                if self.doConnDebug:
-                    print "[DEBUG] Got symbol & as a chunk for " + str(eoc_index) + " time!"
+                Config.getLogger().debug("Got symbol & as a chunk for " + str(eoc_index) + " time!")
                 if eoc_index >= self.cmd_EoC_count:
                     break
                 eoc_index += 1
             index+=1
         
-        print "Got response: " + resp
+        Config.getLogger().debug("Got response: " + resp)
         if self.read_limit-1 == index:
-            print "WARNING: Read length was reached ("+self.read_limit+")"
+            Config.getLogger().warning("Read length was reached ("+self.read_limit+")")
         
         return resp
     
@@ -123,7 +121,7 @@ class ReqRsnp():
         try:
             message = lsSerialResponse[lsSerialResponse.index(self.cmd_prefix)+1:lsSerialResponse.index(self.cmd_suffix)]
         except ValueError:
-            print "Unable to extract command from response ["+lsSerialResponse+"]"
+            Config.getLogger().error("Unable to extract command from response ["+lsSerialResponse+"]")
         
         
         return message
