@@ -7,9 +7,10 @@ Created on Feb 9, 2015
 from LS30Util import Commands, Common
 from LS30Connector import ReqRsnp
 from LS30Data import CodeTable
-from pprint import pprint
+from pprint import pprint, PrettyPrinter, pformat
 import time
 import datetime
+import logging
 
 
 eventCommandPath = "commands.spec_commands.event"
@@ -65,7 +66,7 @@ def getTotalEventsCount(connection):
     memAddrStr = recvString[len(recvString)-3:]
     memAddr = int(memAddrStr, 16)   
     
-    print "[DEBUG] Got memAddrStr as [0x" + memAddrStr + "] or [" + str(memAddr) + "]"
+    logging.debug("Got memAddrStr as [0x" + memAddrStr + "] or [" + str(memAddr) + "]")
     
     return memAddr
 
@@ -100,7 +101,7 @@ def getDeviceLog(connection, entryStart=0, entryEnd=25):
     while(count <= entryEnd):
         cmd = logCommandJSON['command'] + Common.hex3_encoded(memAddr)[2:]
         # cmd = logCommandJSON['command'] + Common.hex3(count)[2:]
-        print ("Sending log entry command " + cmd + " to get entry #" + str(count) + " out of limit of " + str(entryEnd))
+        logging.debug("Sending log entry command " + cmd + " to get entry #" + str(count) + " out of limit of " + str(entryEnd))
         recvString = connection.sendCommand(str(cmd))
         
         if memAddr == 0:
@@ -117,8 +118,7 @@ def getDeviceLog(connection, entryStart=0, entryEnd=25):
     
     index = entryStart
     
-    print "[DEBUG] List of event strings:"
-    pprint(logEntryListStr)
+    logging.debug("List of event strings:\n %s", pformat(logEntryListStr))
     
     for logStr in logEntryListStr:
         logEntry = makeLogListEntry(number = index)

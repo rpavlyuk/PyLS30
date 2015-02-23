@@ -7,9 +7,15 @@ Created on Feb 6, 2015
 '''
 import sys
 import os
-sys.path.insert(0, "/Users/rpavlyuk/Work/LifeSOS/PyLS30")
+
+dirBase = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.insert(0, dirBase)
+
 from LS30Web import LSWebUI
-from bottle import Bottle, run
+from LS30Util import Config
+
+Config.setBaseDir(dirBase)
+Config.configure()
 
 
 if __name__ == '__main__':
