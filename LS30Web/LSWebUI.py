@@ -4,7 +4,7 @@ Created on Feb 6, 2015
 @author: rpavlyuk
 '''
 
-from bottle import Bottle, run, SimpleTemplate, static_file
+from bottle import Bottle, run, SimpleTemplate, static_file, redirect
 
 from LS30Connector import ReqRsnp
 from LS30Util import Commands, Config
@@ -38,6 +38,15 @@ def start():
     reqRsnp = ReqRsnp.ReqRsnp(connString)       
     run(app, host=webHost, port=webPort)
     
+@app.route('/', name='index')
+def index():
+    url = app.get_url('device_log', entryStart=0, entryEnd=10)
+    redirect(url)
+    
+@app.route('/ls30/', name='index_ls30')
+def index_ls30():
+    url = app.get_url('device_log', entryStart=0, entryEnd=10)
+    redirect(url)
 
 @app.route('/ls30/static/:path#.+#', name='static')
 def static(path):
