@@ -1,10 +1,6 @@
-<html>
-<head>
+% from LS30Util import Config
+% include(Config.getWEBTemplatesDir() + '/header.html', title = pageTitle)
 
-</head>
-
-
-<body>
 <p><strong>Total events in log:</strong> {{totalEventCount}}</p>
 
 <p> Device log entries: </p>
@@ -41,6 +37,5 @@
 <p>Raw events list:</p>
 <pre>{{eventList}}</pre>
 
-</body>
+%include(Config.getWEBTemplatesDir() + '/footer.html')
 
-</html>

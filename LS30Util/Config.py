@@ -28,6 +28,7 @@ Directories and files
 '''
 directoryConfig = "config"
 directoryWebTemplates = "templates/web"
+directoryWebStaticContent = "content/web/static"
 directoryCodeTable = "code"
 directoryLog = "log"
 
@@ -111,6 +112,9 @@ def getWEBTemplatesDir():
     global directoryBase, directoryWebTemplates    
     return directoryBase + "/" + directoryWebTemplates
 
+def getWEBStaticContentDir():
+    global directoryWebStaticContent
+    return getBaseDirectory() + "/" + directoryWebStaticContent
 
 def getLS30ConnectionString():
     global ls30_socket_url

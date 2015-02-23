@@ -4,7 +4,7 @@ Created on Feb 6, 2015
 @author: rpavlyuk
 '''
 
-from bottle import Bottle, run, SimpleTemplate
+from bottle import Bottle, run, SimpleTemplate, static_file
 
 from LS30Connector import ReqRsnp
 from LS30Util import Commands, Config
@@ -34,13 +34,14 @@ def init(host="localhost", port=8080):
 
 def start():
     global reqRsnp, webHost, webPort
+    SimpleTemplate.defaults["get_url"] = app.get_url
     reqRsnp = ReqRsnp.ReqRsnp(connString)       
     run(app, host=webHost, port=webPort)
     
 
-@app.route('/hello')
-def hello():
-    return "Hello World!"
+@app.route('/ls30/static/:path#.+#', name='static')
+def static(path):
+    return static_file(path, root=Config.getWEBStaticContentDir())
  
 @app.route('/ls30/serial/get/<command>')
 def serial(command):  
@@ -85,7 +86,7 @@ def displayLog(entryStart=0, entryEnd=25):
     eventList = DeviceLog.getDeviceLog(reqRsnp, int(entryStart), int(entryEnd))
     
     
-    return tpl.render(eventList=eventList, totalEventCount=totalEventCount)
+    return tpl.render(eventList=eventList, totalEventCount=totalEventCount, pageTitle="Events Log")
     
     
     
