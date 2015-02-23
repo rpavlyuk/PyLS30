@@ -73,7 +73,7 @@ def commandSend(command):
     
     return response
 
-@app.route('/ls30/display/log/<entryStart>/<entryEnd>')
+@app.route('/ls30/display/log/<entryStart>/<entryEnd>', name='device_log')
 def displayLog(entryStart=0, entryEnd=25):
     
     global reqRsnp
@@ -85,8 +85,23 @@ def displayLog(entryStart=0, entryEnd=25):
     totalEventCount = DeviceLog.getTotalEventsCount(reqRsnp)
     eventList = DeviceLog.getDeviceLog(reqRsnp, int(entryStart), int(entryEnd))
     
+    # pagination
+    eventsOnPage = int(entryEnd) - int(entryStart)
+    pagesCount = int(totalEventCount) / eventsOnPage
+    if int(totalEventCount)%eventsOnPage > 0:
+        pagesCount = pagesCount + 1
+    i = 1
+    pageList = [ ]
+    while(i <= pagesCount):
+        if (int(entryStart) == (i-1)*eventsOnPage):
+            actual = 1
+        else:
+            actual = 0
+        pageItem = {'actual' : actual, 'number' : i, 'entryStart' : (i-1)*eventsOnPage, 'entryEnd' : i*eventsOnPage if (i*eventsOnPage < int(totalEventCount)) else int(totalEventCount) }
+        pageList.append(pageItem)
+        i += 1
     
-    return tpl.render(eventList=eventList, totalEventCount=totalEventCount, pageTitle="Events Log")
+    return tpl.render(eventList=eventList, totalEventCount=totalEventCount, entryStart=entryStart, entryEnd=entryEnd, pageList=pageList, pageTitle="Events Log")
     
     
     

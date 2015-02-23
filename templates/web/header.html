@@ -3,8 +3,12 @@
 <head>
 	<title>{{title}}</title>
 	<link rel="stylesheet" type="text/css" href="{{ get_url('static', path='main.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ get_url('static', path='knacss-unminified.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ get_url('static', path='knacss-unminified.css') }}" media="all">
 </head>
 
 
 <body>
+<div class="w100 line pas">
+	<div class="inbl"><a href="{{ get_url('device_log', entryStart=0, entryEnd=10) }}">Events</a></div>
+	<div class="inbl"><a href="#">Devices</a></div>
+</div>

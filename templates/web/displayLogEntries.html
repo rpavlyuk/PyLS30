@@ -1,21 +1,33 @@
 % from LS30Util import Config
 % include(Config.getWEBTemplatesDir() + '/header.html', title = pageTitle)
 
-<p><strong>Total events in log:</strong> {{totalEventCount}}</p>
+<div class="w100 line pas">Total events in log:</strong> {{totalEventCount}}</div>
 
-<p> Device log entries: </p>
-<table border="1">
+<!-- paginator -->
+<div class="wauto line pas">
+% for page in pageList:
+	<div class="inbl">
+% if (page['actual'] == 1):
+	<strong>
+% end
+	<a href="{{ get_url('device_log', entryStart=page['entryStart'], entryEnd=page['entryEnd']) }}">{{ page['number'] }}</a>
+% if (page['actual'] == 1):
+	</strong>
+% end
+	</div>  
+% end
+</div>
 
+<table class="striped alternate">
   <tr>
-    <th>No.</th>
-    <th>Code</th>
-    <th>Event</th>
-    <th>Zone</th>
-    <th>Type</th>
-    <th>Activated</th>
-    <th>Date</th>
-    <th>Time</th>
-    <th>Device Name</th>
+    <th scope="col" class="w50p">No.</th>
+    <th scope="col" class="w100p">Code</th>
+    <th scope="col">Event</th>
+    <th scope="col" class="w100p">Zone</th>
+    <th scope="col">Type</th>
+    <th scope="col" class="w100p">Activated</th>
+    <th scope="col">Date</th>
+    <th scope="col">Time</th>
   </tr>
 
   % for event in eventList:
@@ -28,14 +40,13 @@
     <td>{{event['activated']}}</td>
     <td>{{event['date']}}</td>
     <td>{{event['time']}}</td>
-    <td>{{event['device_name']}}</td>
   </tr>
   % end
 
 
 </table>
-<p>Raw events list:</p>
-<pre>{{eventList}}</pre>
+
+
 
 %include(Config.getWEBTemplatesDir() + '/footer.html')
 
