@@ -34,6 +34,7 @@ directoryLog = "log"
 
 fileMainLog = "main.log"
 fileCommandsConfig = "LS30Commands.json"
+fileSensorGroupsConfig = "LS30SensorGroups.json"
 fileEventCode = "eventCode.json"
 fileEventTypeCode = "eventTypeCode.json"
 fileHexCode = "Hex.json"
@@ -42,8 +43,8 @@ fileRHexCode = "RHex.json"
 '''
 Remote access settings
 '''
-ls30_socket_url = "socket://192.168.1.220:1681"
-# ls30_socket_url = "socket://home.pavlyuk.lviv.ua:1681"
+#ls30_socket_url = "socket://192.168.1.220:1681"
+ls30_socket_url = "socket://home.pavlyuk.lviv.ua:1681"
 
 
 '''
@@ -147,6 +148,10 @@ def getLogDirectory():
 def getMainLogFile():
     global fileMainLog
     return getLogDirectory() + "/" + fileMainLog
+
+def getSensorGroupConfig():
+    global fileSensorGroupsConfig
+    return getConfigFolder() + "/" + fileSensorGroupsConfig
     
 
 

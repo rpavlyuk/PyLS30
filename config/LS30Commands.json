@@ -66,6 +66,55 @@
 		 ]
 	   }  
     
+    ],
+    
+    "device_commands" : [
+    	{
+    		"id":		"burglar",
+    		"name":		"Burglar Sensor Status",
+    		"command":	"kb",
+	 		"query_args":  [
+			 	{ "id": "index", "length": 2, "func": "resp_hex2" }
+			 ]   		
+    	
+    	},
+    	{
+    		"id":		"controller",
+    		"name":		"Controller Status",
+    		"command":	"kc",
+	 		"query_args":  [
+			 	{ "id": "index", "length": 2, "func": "resp_hex2" }
+			 ]   		
+    	
+    	},
+    	{
+    		"id":		"fire",
+    		"name":		"Fire Sensor Status",
+    		"command":	"kf",
+	 		"query_args":  [
+			 	{ "id": "index", "length": 2, "func": "resp_hex2" }
+			 ]   		
+    	},   
+    	{
+    		"id":		"medical",
+    		"name":		"Medical Button Status",
+    		"command":	"km",
+	 		"query_args":  [
+			 	{ "id": "index", "length": 2, "func": "resp_hex2" }
+			 ]   		
+    	
+    	},
+    	{
+    		"id":		"special",
+    		"name":		"Special Sensor Status",
+    		"command":	"ke",
+	 		"query_args":  [
+			 	{ "id": "index", "length": 2, "func": "resp_hex2" }
+			 ]   		
+    	
+    	}  	
+    	 	  	
+    
     ]
   
   

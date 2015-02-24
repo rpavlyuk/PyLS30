@@ -9,7 +9,7 @@ from bottle import Bottle, run, SimpleTemplate, static_file, redirect
 from LS30Connector import ReqRsnp
 from LS30Util import Commands, Config
 from LS30Web import Util
-from LS30Data import DeviceLog
+from LS30Data import DeviceLog, DeviceStatus
 
 import pprint
 
@@ -111,6 +111,22 @@ def displayLog(entryStart=0, entryEnd=25):
         i += 1
     
     return tpl.render(eventList=eventList, totalEventCount=totalEventCount, entryStart=entryStart, entryEnd=entryEnd, pageList=pageList, pageTitle="Events Log")
+
+@app.route('/ls30/display/devices/<deviceGroup>', name='device')
+def displayDevices(deviceGroup):
+    
+    global reqRsnp
+
+    templateFileName = "displayDevices.html"
+    
+    tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
+       
+    deviceList = DeviceStatus.getDeviceStatus(reqRsnp, int(deviceGroup))
+    
+    return tpl.render(deviceList=deviceList, pageTitle="Devices")
+    
+
+    
     
     
     

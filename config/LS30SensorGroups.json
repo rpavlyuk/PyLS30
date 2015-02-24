@@ -1,0 +1,14 @@
+{
+  "sensorGroups" : [
+  	
+  	{ "id" : 0, "name" : "Controller", "command" : "commands.device_commands.controller" },
+  	{ "id" : 1, "name" : "BurglarSensor", "command" : "commands.device_commands.burglar" },
+  	{ "id" : 2, "name" : "FireSensor", "command" : "commands.device_commands.fire" },
+  	{ "id" : 3, "name" : "MedicalButton", "command" : "commands.device_commands.medical" },
+  	{ "id" : 4, "name" : "SpecialSensor", "command" : "commands.device_commands.special" },
+  	{ "id" : 5, "name" : "All", "command" : "" }
+  
+  ]
+
+
+}

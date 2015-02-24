@@ -47,7 +47,7 @@ def getCommandJSON(commandPath):
     commandJSON = commandsDataJSON
     
     if not isJSONLoaded:
-        print "[WARNING] JSON command data were not loaded!"
+        Config.getLogger().warning("JSON command data were not loaded!")
         return commandJSON
     
     print "Looking for JSON object in commands file by search path [" + commandPath + "]"

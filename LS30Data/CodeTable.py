@@ -25,3 +25,9 @@ def getEventTypeByCode(eventTypeCode):
     eventTypesJSON = json.load(eventTypesFile)
     
     return eventTypesJSON[str(eventTypeCode)]
+
+def getSensorGroupConfig():
+    
+    groupConfigFile = open(Config.getSensorGroupConfig())
+    
+    return json.load(groupConfigFile)

@@ -9,7 +9,6 @@ from LS30Data import CodeTable
 from pprint import pformat
 import time
 import datetime
-import logging
 
 
 eventCommandPath = "commands.spec_commands.event"
