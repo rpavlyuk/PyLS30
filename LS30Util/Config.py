@@ -45,7 +45,7 @@ fileSensorTypeCode = "sensorTypeCode.json"
 Remote access settings
 '''
 ls30_socket_url = "socket://192.168.1.220:1681"
-ls30_socket_url = "socket://home.pavlyuk.lviv.ua:1681"
+#ls30_socket_url = "socket://home.pavlyuk.lviv.ua:1681"
 
 
 '''

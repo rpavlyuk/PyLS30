@@ -125,11 +125,9 @@ def displayDevices(deviceGroup):
     
     tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
        
-    deviceList = DeviceStatus.getDeviceStatus(reqRsnp, int(deviceGroup))
+    deviceList = DeviceStatus.getDeviceStatus(reqRsnp, int(deviceGroup))   
     
-    
-    
-    return tpl.render(deviceList=deviceList, deviceGroups=deviceGroups, pageTitle="Devices")
+    return tpl.render(deviceList=deviceList, deviceGroups=deviceGroups, deviceGroupId=deviceGroup, pageTitle="Devices")
     
 
     

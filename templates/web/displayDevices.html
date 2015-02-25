@@ -16,8 +16,9 @@ function on_select_change(select) {
 <div class="w100 line pas">
 Filter by group:
 <select onchange="on_select_change(this)" id="type_selector">
+	<option value="5">All</option>
 % for devGroup in deviceGroups['sensorGroups']:
-	<option value="{{str(devGroup['id'])}}">{{str(devGroup['name'])}}</option>
+	<option value="{{str(devGroup['id'])}}" {{'selected' if (str(devGroup['id']) == str(deviceGroupId)) else ''}}>{{str(devGroup['name'])}}</option>
 
 % end
 </select>
