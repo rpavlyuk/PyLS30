@@ -9,9 +9,10 @@ from bottle import Bottle, run, SimpleTemplate, static_file, redirect
 from LS30Connector import ReqRsnp
 from LS30Util import Commands, Config
 from LS30Web import Util
-from LS30Data import DeviceLog, DeviceStatus
+from LS30Data import DeviceLog, DeviceStatus, CodeTable
 
 import pprint
+from pprint import pformat
 
 webHost = "localhost"
 webPort = 8080
@@ -117,13 +118,18 @@ def displayDevices(deviceGroup):
     
     global reqRsnp
 
+    deviceGroups = CodeTable.getSensorGroupConfig()
+    # Config.getLogger().debug(pformat(deviceGroups))
+
     templateFileName = "displayDevices.html"
     
     tpl = SimpleTemplate(Util.getWEBTemlate(templateFileName))
        
     deviceList = DeviceStatus.getDeviceStatus(reqRsnp, int(deviceGroup))
     
-    return tpl.render(deviceList=deviceList, pageTitle="Devices")
+    
+    
+    return tpl.render(deviceList=deviceList, deviceGroups=deviceGroups, pageTitle="Devices")
     
 
     

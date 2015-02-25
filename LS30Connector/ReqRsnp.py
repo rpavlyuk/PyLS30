@@ -7,6 +7,7 @@ from serial import serial_for_url, SerialException
 import logging
 
 from LS30Util import Config
+from serial.serialutil import portNotOpenError
 
 
 class ReqRsnp():
@@ -67,6 +68,29 @@ class ReqRsnp():
         if not self.connection.isOpen():
             Config.getLogger().info("Connection closed successfully")
     
+    def resetConnection(self):
+        
+        connCheckIterations = 2048
+        i = 0
+        
+        Config.getLogger().debug("Performing Serial-over-TCP connection reset")
+        
+        self.connection.close()
+        
+        if self.connection.isOpen:
+            Config.getLogger().error("Unable to close connection to " + self.connString)
+        
+        self.connection.open()
+        
+        while(i < connCheckIterations):
+            if self.connection.isOpen:
+                Config.getLogger().debug("Connection became ready after " + str(i) + " iterations")
+                break
+            i+=1
+        
+        if not self.connection.isOpen:
+            Config.getLogger().error("Unable to open connection to " + self.connString)
+    
 
     def sendRequest(self, requestString, chunkSize=1):
         '''
@@ -74,6 +98,7 @@ class ReqRsnp():
         ''' 
         
         Config.getLogger().debug("Port opened. Sending request '" + requestString + "'")
+        self.resetConnection()
         self.connection.write(requestString)
         
         resp = ""
@@ -84,10 +109,10 @@ class ReqRsnp():
         Config.getLogger().debug("Reading port output")
         while (index < self.read_limit):
             msg = self.connection.read(chunkSize)
-            Config.getLogger().debug("Got chunk [" + str(index) + "]: " + msg)
+            # Config.getLogger().debug("Got chunk [" + str(index) + "]: " + msg)
             resp += msg
             if msg == "&":
-                Config.getLogger().debug("Got symbol & as a chunk for " + str(eoc_index) + " time!")
+                # Config.getLogger().debug("Got symbol & as a chunk for " + str(eoc_index) + " time!")
                 if eoc_index >= self.cmd_EoC_count:
                     break
                 eoc_index += 1

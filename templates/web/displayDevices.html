@@ -1,7 +1,65 @@
 % from LS30Util import Config
+% from pprint import pformat
+% import os
 % include(Config.getWEBTemplatesDir() + '/header.html', title = pageTitle)
 
-<table>
+<script>
+function on_select_change(select) {
+	location.href = "{{ os.path.dirname(get_url('device', deviceGroup=5 )) }}" + "/" + select.value
+	
+	
+	
+}
+
+</script>
+
+<div class="w100 line pas">
+Filter by group:
+<select onchange="on_select_change(this)" id="type_selector">
+% for devGroup in deviceGroups['sensorGroups']:
+	<option value="{{str(devGroup['id'])}}">{{str(devGroup['name'])}}</option>
+
+% end
+</select>
+
+<div class="w100 line pas">
+
+<table class="striped alternate">
+  <tr>
+    <th scope="col" class="w50p">No.</th>
+    <th scope="col" class="w100p">Zone</th>
+    <th scope="col">Sensor Type</th>
+    <th scope="col" class="w100p">ID</th>
+    <th scope="col" class="w50p">MA</th>
+    <th scope="col" class="w50p">DC</th>
+    <th scope="col" class="w100p">ES</th>
+    <th scope="col" class="w100p">X-10</th>
+    <th scope="col" class="w50p">CS</th>
+    <th scope="col" class="w50p">DT</th>
+    <th scope="col" class="w50p">CD</th>
+    <th scope="col" class="w50p">HL</th>
+    <th scope="col" class="w50p">LL</th>
+    <th scope="col" class="w50p">SS</th>
+  </tr>
+
+% for device in deviceList:
+  <tr>
+    <td>{{device['number']}}</td>
+    <td>{{device['zone']}}</td>
+    <td>{{device['sensorType']}}</td>
+    <td>{{device['sensorId']}}</td>
+    <td>{{device['ma']}}</td>
+    <td>{{device['dc']}}</td>
+    <td>{{device['es']}}</td>
+    <td>{{device['x10']}}</td>
+    <td>{{device['cs']}}</td>
+    <td>{{device['dt']}}</td>
+    <td>{{device['cd']}}</td>
+    <td>{{device['hl']}}</td>
+    <td>{{device['ll']}}</td>
+    <td>{{device['ss']}}</td>
+  </tr>
+% end
 
 
 </table>

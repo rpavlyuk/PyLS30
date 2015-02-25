@@ -31,3 +31,11 @@ def getSensorGroupConfig():
     groupConfigFile = open(Config.getSensorGroupConfig())
     
     return json.load(groupConfigFile)
+
+def getSensorTypeByCode(sensorCode):
+    
+    sensorTypeFile = open(Config.getCodeTableSensorCode())
+    
+    sensorTypesJSON = json.load(sensorTypeFile)
+    
+    return sensorTypesJSON[str(sensorCode)]
