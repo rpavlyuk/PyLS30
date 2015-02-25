@@ -4,7 +4,7 @@ Created on Feb 6, 2015
 @author: rpavlyuk
 '''
 
-from bottle import Bottle, run, SimpleTemplate, static_file, redirect
+from bottle import Bottle, run, SimpleTemplate, static_file, redirect, error
 
 from LS30Connector import ReqRsnp
 from LS30Util import Commands, Config
@@ -38,6 +38,22 @@ def start():
     SimpleTemplate.defaults["get_url"] = app.get_url
     reqRsnp = ReqRsnp.ReqRsnp(connString)       
     run(app, host=webHost, port=webPort)
+
+@app.error(500)
+def error500(error):
+    
+    str = "<h1>500 Internal Server Error</h1>"
+    str += "<p>What a shame...</p>"
+    
+    str += "<h5>Maybe, this will help you?</h5>"
+    
+    str += "<div><textarea readonly class="" style=\"width: 800px;\" rows=\"20\" cols=\"80\">"
+    str += pformat(error.traceback)
+    str += pformat(error.exception)
+    str += "</textarea></div>"
+    
+    return str
+    
     
 @app.route('/', name='index')
 def index():
