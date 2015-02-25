@@ -31,6 +31,7 @@ directoryWebTemplates = "templates/web"
 directoryWebStaticContent = "content/web/static"
 directoryCodeTable = "code"
 directoryLog = "log"
+directoryStrings = "content/strings"
 
 fileMainLog = "main.log"
 fileCommandsConfig = "LS30Commands.json"
@@ -40,6 +41,12 @@ fileEventTypeCode = "eventTypeCode.json"
 fileHexCode = "Hex.json"
 fileRHexCode = "RHex.json"
 fileSensorTypeCode = "sensorTypeCode.json"
+
+'''
+I18N String Files
+'''
+fileStringsHelp = "help.json"
+
 
 '''
 Remote access settings
@@ -157,6 +164,14 @@ def getMainLogFile():
 def getSensorGroupConfig():
     global fileSensorGroupsConfig
     return getConfigFolder() + "/" + fileSensorGroupsConfig
+
+def getStringsDirectory():
+    global directoryStrings
+    return getBaseDirectory() + "/" + directoryStrings
+
+def getStringsFileHelp():
+    global fileStringsHelp
+    return getStringsDirectory() + "/" + fileStringsHelp
     
 
 

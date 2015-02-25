@@ -1,4 +1,4 @@
-% from LS30Util import Config
+% from LS30Util import Config, I18N
 % from pprint import pformat
 % import os
 % include(Config.getWEBTemplatesDir() + '/header.html', title = pageTitle)
@@ -62,8 +62,30 @@ Filter by group:
   </tr>
 % end
 
-
+  <tr>
+    <th scope="col" class="w50p">No.</th>
+    <th scope="col" class="w100p">Zone</th>
+    <th scope="col">Sensor Type</th>
+    <th scope="col" class="w100p">ID</th>
+    <th scope="col" class="w50p">MA</th>
+    <th scope="col" class="w50p">DC</th>
+    <th scope="col" class="w100p">ES</th>
+    <th scope="col" class="w100p">X-10</th>
+    <th scope="col" class="w50p">CS</th>
+    <th scope="col" class="w50p">DT</th>
+    <th scope="col" class="w50p">CD</th>
+    <th scope="col" class="w50p">HL</th>
+    <th scope="col" class="w50p">LL</th>
+    <th scope="col" class="w50p">SS</th>
+  </tr>
+  
 </table>
+
+<h4>Additional information</h4>
+<div><textarea readonly class="w800p" rows="18">
+{{I18N.getHelpString('hypersecure.i18n.Check.DeviceStatusFrame.help')}}
+</textarea>
+</div>
 
 
 

@@ -1,4 +1,4 @@
-% from LS30Util import Config
+% from LS30Util import Config, I18N
 % include(Config.getWEBTemplatesDir() + '/header.html', title = pageTitle)
 
 <div class="w100 line pas">Total events in log:</strong> {{totalEventCount}}</div>
@@ -43,10 +43,24 @@
   </tr>
   % end
 
+  <tr>
+    <th scope="col" class="w50p">No.</th>
+    <th scope="col" class="w100p">Code</th>
+    <th scope="col">Event</th>
+    <th scope="col" class="w100p">Zone</th>
+    <th scope="col">Type</th>
+    <th scope="col" class="w100p">Activated</th>
+    <th scope="col">Date</th>
+    <th scope="col">Time</th>
+  </tr>
 
 </table>
 
-
+<h4>Additional information</h4>
+<div><textarea readonly class="w800p" rows="4">
+{{I18N.getHelpString('hypersecure.i18n.Check.EventLogFrame.help')}}
+</textarea>
+</div>
 
 %include(Config.getWEBTemplatesDir() + '/footer.html')
 
