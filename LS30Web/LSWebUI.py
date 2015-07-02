@@ -14,7 +14,7 @@ from LS30Data import DeviceLog, DeviceStatus, CodeTable
 import pprint
 from pprint import pformat
 
-webHost = "localhost"
+webHost = "0.0.0.0"
 webPort = 8080
 
 # connString  = "socket://192.168.1.220:1681"
@@ -47,10 +47,12 @@ def error500(error):
     
     str += "<h5>Maybe, this will help you?</h5>"
     
-    str += "<div><textarea readonly class="" style=\"width: 800px;\" rows=\"20\" cols=\"80\">"
-    str += pformat(error.traceback)
-    str += pformat(error.exception)
+    str += "<div><textarea readonly class="" style=\"width: 1024px;\" rows=\"24\" cols=\"120\">"
+    # str += "<pre>"
+    str += pformat(error.traceback).replace('\\n', '\n')
+    str += pformat(error.exception).replace('\\n', '\n')
     str += "</textarea></div>"
+    # str += "</pre>"
     
     return str
     

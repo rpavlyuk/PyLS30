@@ -127,8 +127,8 @@ def getDeviceLog(connection, entryStart=0, entryEnd=25):
         logEntry['event_type'] = CodeTable.getEventTypeByCode(logStr[7]) 
         logEntry['activated'] = logStr[10] + logStr[11]
         logEntry['timestamp'] = parseDateTime(logStr[12] + logStr[13] + logStr[14] + logStr[15] + logStr[16] + logStr[17] + logStr[18] + logStr[19])        
-        logEntry['date'] = '{:%Y-%m-%d, %a}'.format(logEntry['timestamp'])
-        logEntry['time'] = '{:%H:%M:%S}'.format(logEntry['timestamp'])
+        #logEntry['date'] = '{:%Y-%m-%d, %a}'.format(logEntry['timestamp'])
+        #logEntry['time'] = '{:%H:%M:%S}'.format(logEntry['timestamp'])
         
         logEntryList.append(logEntry)
         index += 1
